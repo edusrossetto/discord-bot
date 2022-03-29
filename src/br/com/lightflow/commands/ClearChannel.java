@@ -1,4 +1,4 @@
-package br.com.andromeda.commands;
+package br.com.lightflow.commands;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
 public class ClearChannel extends ListenerAdapter {
 
     @Override
@@ -18,26 +17,27 @@ public class ClearChannel extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         TextChannel textChannel = (TextChannel) event.getChannel();
 
-        if (args[0].equals("!" + "clear".toLowerCase())) {
-            List<Message> messages = event.getChannel().getHistory().retrievePast(Integer.parseInt(args[1])).complete();
-            textChannel.deleteMessages(messages).queue();
+        // if (args[0].equals("$" + "clear".toLowerCase())) {
+        // List<Message> messages =
+        // event.getChannel().getHistory().retrievePast(Integer.parseInt(args[1])).complete();
+        // textChannel.deleteMessages(messages).queue();
 
-        }
+        // }
 
-        if (args[0].equals("!" + "clear".toLowerCase() + "-force")) {
-            for (int i = 0; i <= Integer.parseInt(args[1]); i++) {
-                purgeMessages(textChannel, 100);
-                try {
-                    TimeUnit.SECONDS.sleep(7);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        // if (args[0].equals("$" + "clear".toLowerCase() + "-force")) {
+        // for (int i = 0; i <= Integer.parseInt(args[1]); i++) {
+        // purgeMessages(textChannel, 100);
+        // try {
+        // TimeUnit.SECONDS.sleep(7);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
 
-            }
+        // }
 
-        }
+        // }
 
-        if (args[0].equals("!" + "clear".toLowerCase() + "-all")) {
+        if (args[0].equals("$" + "clear".toLowerCase())) {
             for (int i = 0; i <= 1000; i++) {
                 purgeMessages(textChannel, 100);
                 try {
@@ -50,14 +50,12 @@ public class ClearChannel extends ListenerAdapter {
 
         }
 
-        if (args[0].equals("!" + "delete".toLowerCase())) {
+        if (args[0].equals("$" + "delete".toLowerCase())) {
             textChannel.createCopy().complete();
             textChannel.delete().queue();
-            }
-
         }
 
-
+    }
 
     private void purgeMessages(TextChannel channel, int num) {
         MessageHistory history = new MessageHistory(channel);
@@ -68,4 +66,3 @@ public class ClearChannel extends ListenerAdapter {
         channel.deleteMessages(msgs).queue();
     }
 }
-

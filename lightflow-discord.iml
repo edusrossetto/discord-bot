@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Documents/JDA/JDA-5.0.0-alpha.9-withDependencies.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../JDA/JDA-5.0.0-alpha.9-withDependencies.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,9 +19,9 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Documents/log4j-api-2.17.2.jar!/" />
-          <root url="jar://$USER_HOME$/Documents/log4j-core-2.17.2.jar!/" />
-          <root url="jar://$USER_HOME$/Documents/log4j-slf4j-impl-2.17.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../log4j-api-2.17.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../log4j-core-2.17.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../log4j-slf4j-impl-2.17.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
@@ -29,5 +29,6 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="JDA-5.0.0-alpha.9_023a6c9-withDependencies" level="project" />
   </component>
 </module>

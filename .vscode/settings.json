@@ -1,0 +1,9 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\Eduardo\\Documents\\JDA\\JDA-5.0.0-alpha.9_023a6c9-withDependencies.jar",
+        "c:\\Users\\Eduardo\\Documents\\Default\\json-20220320.jar",
+        "c:\\Users\\Eduardo\\Documents\\Default\\json-simple-1.1.jar",
+        "c:\\Users\\Eduardo\\Documents\\Default\\gson-2.8.2.jar"
+    ]
+}
