@@ -1,6 +1,7 @@
 package br.com.lightflow.commands;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.InputStreamReader;
 
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -9,10 +10,15 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
+import br.com.lightflow.models.Form;
+
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.net.HttpURLConnection;
 import com.google.gson.JsonObject;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 public class PokemonAleatorio extends ListenerAdapter {
@@ -44,10 +50,15 @@ public class PokemonAleatorio extends ListenerAdapter {
 
                 JsonObject pokepoke = new Gson().fromJson(obj, JsonObject.class);
 
-                
-                String nomepoke = pokepoke.get("name").getAsString();
-
-                textChannel.sendMessage(nomepoke + " name").queue();
+                // JsonArray forms = pokepoke.getAsJsonArray("forms");
+                // String nome = forms.get(0).getAsString();
+                ArrayList<Form> forms = new ArrayList<Form>();
+                JsonElement nomepoke = pokepoke.get("forms");
+                forms = gson.fromJson(nomepoke, ArrayList.class);
+                Form teste = gson.fromJson(forms.get(0).toString(), Form.class);
+                System.out.println(teste);
+                // textChannel.sendMessage(forms.get(0).getName()).queue();
+                // textChannel.sendMessage(nome + " name").queue();
 
             } catch (Exception e) {
                 e.printStackTrace();
