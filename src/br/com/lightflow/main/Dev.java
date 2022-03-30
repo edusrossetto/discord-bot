@@ -28,7 +28,8 @@ public class Dev {
         jda.addEventListener(new Status());
         jda.addEventListener(new ClearChannel());
         jda.addEventListener(new TestCommand());
-        jda.addEventListener(new PokemonAleatorio());
+        jda.addEventListener(new PokemonStatus());
+        jda.addEventListener(new RandomPokemon());
 
         // Iterando os servidores que o andrômeda está!
         for (Guild guild : jda.awaitReady().getGuilds()) {

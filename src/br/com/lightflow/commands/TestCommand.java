@@ -9,14 +9,23 @@ public class TestCommand extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String[] args = event.getMessage().getContentRaw().split(" ");
+        String[] mensagem = event.getMessage().getContentRaw().split(" ");
         TextChannel textChannel = (TextChannel) event.getChannel();
 
-        if (args[0].toLowerCase().equals("$spamma")) {
-            // separado = args[0].split("\\s+");
-            for (int i = 1; i <= Integer.parseInt(args[1]); i++) {
-                textChannel.sendMessage(i + " Spammado").queue();
-                
+        if (mensagem[0].toLowerCase().equals("$spamma") && mensagem.length < 2) {
+            textChannel.sendMessage("Quanto tem que ser spammado? Tipo \"$spamma 5\"").queue();
+
+        }
+
+        if (mensagem[0].toLowerCase().equals("$spamma") && mensagem.length > 1) {
+            for (int i = 1; i <= Integer.parseInt(mensagem[1]); i++) {
+                if (i == 1) {
+                    textChannel.sendMessage(i + " Spammado").queue();
+
+                } else {
+                    textChannel.sendMessage(i + " Spammados").queue();
+
+                }
 
             }
 
