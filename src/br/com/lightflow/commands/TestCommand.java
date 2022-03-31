@@ -12,12 +12,35 @@ public class TestCommand extends ListenerAdapter {
         String[] mensagem = event.getMessage().getContentRaw().split(" ");
         TextChannel textChannel = (TextChannel) event.getChannel();
 
-        if (mensagem[0].toLowerCase().equals("$spamma") && mensagem.length < 2) {
+        if (mensagem[0].toLowerCase().equals("$spamma") && mensagem.length == 1) {
             textChannel.sendMessage("Quanto tem que ser spammado? Tipo \"$spamma 5\"").queue();
 
         }
 
-        if (mensagem[0].toLowerCase().equals("$spamma") && mensagem.length > 1) {
+        if (mensagem[0].toLowerCase().equals("$spamma")
+                && mensagem.length == 2
+                && Integer.parseInt(mensagem[1]) <= 15) {
+
+            for (int i = 1; i <= Integer.parseInt(mensagem[1]); i++) {
+                if (i == 1) {
+                    textChannel.sendMessage(i + " Spammado").queue();
+
+                } else {
+                    textChannel.sendMessage(i + " Spammados").queue();
+
+                }
+
+            }
+
+        }
+        if (mensagem.length == 2 && Integer.parseInt(mensagem[1]) > 15) {
+            textChannel.sendMessage("Precisa ser admin pra mandar tanta mensagem").queue();
+
+        }
+        if (mensagem[0].toLowerCase().equals("$spamma")
+                && mensagem.length == 3
+                && mensagem[2].equals("admin")) {
+
             for (int i = 1; i <= Integer.parseInt(mensagem[1]); i++) {
                 if (i == 1) {
                     textChannel.sendMessage(i + " Spammado").queue();
