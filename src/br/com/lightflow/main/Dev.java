@@ -1,8 +1,7 @@
 package br.com.lightflow.main;
 
 import br.com.lightflow.commands.*;
-import br.com.lightflow.token.Token;
-
+import br.com.lightflow.security.Token;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -30,6 +29,7 @@ public class Dev {
         jda.addEventListener(new TestCommand());
         jda.addEventListener(new PokemonStatus());
         jda.addEventListener(new RandomPokemon());
+        jda.addEventListener(new MultiplePokemon());
 
         // Iterando os servidores que o andrômeda está!
         for (Guild guild : jda.awaitReady().getGuilds()) {

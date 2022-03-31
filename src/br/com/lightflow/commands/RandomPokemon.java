@@ -19,7 +19,7 @@ public class RandomPokemon extends ListenerAdapter {
             try {
                 Random r = new Random();
                 URL url = new URL(
-                        "https://pokeapi.co/api/v2/pokemon/" + (r.nextInt((898 - 1) + 1) + 1));
+                        "https://pokeapi.co/api/v2/pokemon/" + (r.nextInt((649 - 1) + 1) + 1));
 
                 Pokemon.printPokemon(event,textChannel,  url);
 

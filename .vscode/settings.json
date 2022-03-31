@@ -5,5 +5,6 @@
         "c:\\Users\\Eduardo\\Documents\\Default\\json-20220320.jar",
         "c:\\Users\\Eduardo\\Documents\\Default\\gson-2.8.2.jar",
         "c:\\Users\\Eduardo\\Documents\\Default\\Jars\\sqlite-jdbc-3.36.0.3.jar"
-    ]
+    ],
+    "java.format.settings.url": "eclipse-formatter.xml"
 }
