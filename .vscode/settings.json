@@ -4,7 +4,9 @@
         "c:\\Users\\Eduardo\\Documents\\JDA\\JDA-5.0.0-alpha.9_023a6c9-withDependencies.jar",
         "c:\\Users\\Eduardo\\Documents\\Default\\json-20220320.jar",
         "c:\\Users\\Eduardo\\Documents\\Default\\gson-2.8.2.jar",
-        "c:\\Users\\Eduardo\\Documents\\Default\\Jars\\sqlite-jdbc-3.36.0.3.jar"
+        "c:\\Users\\Eduardo\\Documents\\Default\\Jars\\sqlite-jdbc-3.36.0.3.jar",
+        "c:\\Users\\Eduardo\\Documents\\Default\\Jars\\JDA-5.0.0-alpha.9.jar",
+        "c:\\Users\\Eduardo\\Documents\\Default\\Jars\\slf4j-api-1.7.25.jar"
     ],
     "java.format.settings.url": "eclipse-formatter.xml"
 }

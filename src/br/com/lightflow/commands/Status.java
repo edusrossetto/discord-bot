@@ -16,13 +16,9 @@ public class Status extends ListenerAdapter {
 
         if (mensagem.toLowerCase().equals("$status")) {
 
-            textChannel.sendMessage(Dev.jda.getGatewayPing() + "ms de ping.\n ");
+            textChannel.sendMessage(Dev.jda.getGatewayPing() + "ms de ping.\n ").queue();;
 
-            // channel.getHistory().retrievePast(1)
-            // .map(messages -> messages.get(0))
-            // .queue(message -> {
-            // message.addReaction("\u2620").queue();
-            // });
+
         }
 
     }

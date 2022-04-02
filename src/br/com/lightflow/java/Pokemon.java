@@ -4,27 +4,29 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import br.com.lightflow.security.Sqlite;
 //import br.com.lightflow.security.Sqlite;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Pokemon {
-
+    
+   
     public static void printPokemon( MessageReceivedEvent event, TextChannel channel, URL url) {
-        //long id = Long.parseLong(event.getAuthor().getId());
-        TextChannel textChannel = (TextChannel) event.getChannel();
         try {
+            long id = event.getMessage().getMember().getIdLong();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestMethod("GET");
             conn.connect();
 
             if (conn.getResponseCode() != 200) {
-                channel.sendMessage("Erro nos números").queue();
+                channel.sendMessage("Erro nos números/pokemon").queue();
                 conn.disconnect();
             }
 
@@ -55,32 +57,32 @@ public class Pokemon {
             JSONObject typeMain = type.getJSONObject("type");
 
             String typeOne = (String) typeMain.get("name");
-            String typeTwo = null;
+            String typeTwo = "null";
 
+            String color = Utility.getColor(typeOne);
+
+            Random r = new Random();
+            int numerorandom = (r.nextInt((2 - 1) + 1) + 1);
 
             if (types.length() > 1) {
                 JSONObject type2 = types.getJSONObject(1);
                 JSONObject typeMain2 = type2.getJSONObject("type");
                 typeTwo = (String) typeMain2.get("name");
+                if (numerorandom==2){
+                    color = Utility.getColor(typeTwo);
+                }
                 typeTwo = Utility.traduzTipo(typeTwo);
+                
             }
 
             typeOne = Utility.traduzTipo(typeOne);
-        
-            StringBuilder sb = new StringBuilder();
-            sb.append("\n"+"Nome: " + nome);
-            sb.append("\n"+"Tipo: " + typeOne);
-
-            if (types.length() > 1) {
-            sb.append("\n"+"Segundo tipo: " + typeTwo);
-            }
-
-            //sb.append("\n" + png);
-
-            event.getMessage().reply(sb).queue();
-            //Sqlite bd = new Sqlite();
-            //bd.update(id, nome);
-            textChannel.sendMessage(png).queue();
+              
+            Utility uti = new Utility();
+            event.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne,typeTwo, color, png,event.getMember())).setActionRow(Utility.sendButtons()).queue();
+            
+            Sqlite bd = new Sqlite();
+            bd.setPokeTemp(id, nome);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

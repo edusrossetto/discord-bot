@@ -22,7 +22,7 @@ public class ClearChannel extends ListenerAdapter {
 
         // }
 
-        if (args[0].equals("$" + "clear".toLowerCase())) {
+        if (args[0].toLowerCase().equals("$" + "clear")) {
             for (int i = 0; i <= 1000; i++) {
                 
                 TextChannel channel = (TextChannel) event.getChannel();
