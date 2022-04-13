@@ -1,29 +1,23 @@
 package br.com.lightflow.java;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.json.JSONObject;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
-public class Utility extends ListenerAdapter{
-
+public class PokeUtility extends ListenerAdapter{
     
-
-    public static List<Button> sendButtons(){
-        List<Button> buttons = new ArrayList<>();
-        buttons.add(Button.danger("capture", "Capturar!"));
-        
-        return buttons;
-
-    }
-  
+    
+   
     EmbedBuilder builder = new EmbedBuilder();
 
     public MessageEmbed pokeEmbed(String nome, String tipoUm, String tipoDois,String color, String png, Member author){
@@ -52,24 +46,100 @@ public class Utility extends ListenerAdapter{
     
     return builder.build();
 }
-    public static String formata(String str){
-        str = str.substring(0, 1).toUpperCase() + str.substring(1);
-        str = str.replace('-', ' ');
 
-        return str;
-
-    }
     
-    public static boolean contemNumero(String str) { 
-        try {  
-          Double.parseDouble(str);  
-          return true;
-        } catch(NumberFormatException e){  
-          return false;  
-        }  
-      }
+    
 
-      public static String traduzTipo(String str){
+    public static boolean exception(int id){
+        if(id == 119 || id == 130 || id == 132 || id == 139 || id == 141 || id == 201 || id == 233 || id == 234 || id == 354 || id == 362 || id == 368 || id == 369 || id == 370 || id == 398 || id == 413 || id == 483 || id == 547 || id == 754){
+            return true;
+        }
+        return false;
+        
+    }
+
+    public static int getIdPokemon(String nomePokemon){
+    
+        try {
+        URL url = new URL(
+            "https://pokeapi.co/api/v2/pokemon/"+SemanticUtility.desFormata(nomePokemon)
+        );
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        conn.setRequestMethod("GET");
+        conn.connect();
+
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+
+        in.close();
+        conn.disconnect();
+
+        String response = content.toString();
+
+        JSONObject json = new JSONObject(response);
+
+        int pokeid = (int) json.get("id");
+
+        return pokeid;
+
+        }catch (Exception e) {
+            e.printStackTrace();
+
+            return 404;
+        }
+
+        
+    }
+
+    public static String getNamePokemon(int id){
+    
+        try {
+        URL url = new URL(
+            "https://pokeapi.co/api/v2/pokemon/"+(id)
+        );
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        conn.setRequestMethod("GET");
+        conn.connect();
+
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+
+        in.close();
+        conn.disconnect();
+
+        String response = content.toString();
+
+        JSONObject json = new JSONObject(response);
+
+        String name = (String) json.get("name");
+
+        return name;
+
+        }catch (Exception e) {
+            e.printStackTrace();
+
+            return "errado";
+        }
+
+        
+    }
+
+
+    public static String traduzTipo(String str){
         if (str.equals("normal")){
             return "Normal";
         }else if (str.equals("fire")){
@@ -157,43 +227,3 @@ public class Utility extends ListenerAdapter{
     }
 
 }
-  
-        //String corDois[] = new String[2];
-        
-        // }else if (tipoUm.equals("fire")){
-        //     cor = "Fogo";
-        // }else if(tipoUm.equals("water")){
-        //     cor = "Água";
-        // }else if(tipoUm.equals("grass")){
-        //     cor = "Grama";
-        // }else if(tipoUm.equals("electric")){
-        //     cor = "Elétrico";
-        // }else if(tipoUm.equals("psychic")){
-        //     cor = "Psíquico";
-        // }else if(tipoUm.equals("ice")){
-        //     cor = "Gelo";
-        // }else if(tipoUm.equals("ghost")){
-        //     cor = "Fantasma";
-        // }else if(tipoUm.equals("dragon")){
-        //     cor = "Dragão";
-        // }else if(tipoUm.equals("fighting")){
-        //     cor = "Lutador";
-        // }else if(tipoUm.equals("flying")){
-        //     cor = "Voador";
-        // }else if(tipoUm.equals("poison")){
-        //     cor = "Veneno";
-        // }else if(tipoUm.equals("ground")){
-        //     cor = "Terra";
-        // }else if(tipoUm.equals("rock")){
-        //     cor = "Pedra";
-        // }else if(tipoUm.equals("bug")){
-        //     cor = "Inseto";
-        // }else if(tipoUm.equals("steel")){
-        //     cor = "Aço";
-        // }else if(tipoUm.equals("dark")){
-        //     cor = "Sombrio";
-        // }else if(tipoUm.equals("fairy")){
-        //     cor = "Fada";
-        // }else{
-        //     cor = "Erro, tipo inválido.";
-        // }

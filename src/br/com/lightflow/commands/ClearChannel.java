@@ -14,15 +14,9 @@ public class ClearChannel extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String[] args = event.getMessage().getContentRaw().split("\\s+");
-        // if (args[0].equals("$" + "clear".toLowerCase())) {
-        // List<Message> messages =
-        // event.getChannel().getHistory().retrievePast(Integer.parseInt(args[1])).complete();
-        // textChannel.deleteMessages(messages).queue();
+        String message = event.getMessage().getContentRaw();
 
-        // }
-
-        if (args[0].toLowerCase().equals("$" + "clear")) {
+        if (message.toLowerCase().equals("$" + "clear")) {
             for (int i = 0; i <= 1000; i++) {
                 
                 TextChannel channel = (TextChannel) event.getChannel();

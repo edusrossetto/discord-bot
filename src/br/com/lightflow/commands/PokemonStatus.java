@@ -18,7 +18,7 @@ public class PokemonStatus extends ListenerAdapter {
             try {
                 URL url = new URL("https://pokeapi.co/api/v2/pokemon/" + mensagem[1]);
                 
-                Pokemon.printPokemon(event,textChannel,  url);
+                Pokemon.printPokemon(event, null, textChannel,  url, 2);
             } catch (Exception e) {
                 e.printStackTrace();
             }

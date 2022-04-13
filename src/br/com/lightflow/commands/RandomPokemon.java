@@ -21,7 +21,7 @@ public class RandomPokemon extends ListenerAdapter {
                 URL url = new URL(
                         "https://pokeapi.co/api/v2/pokemon/" + (r.nextInt((649 - 1) + 1) + 1));
 
-                Pokemon.printPokemon(event,textChannel,  url);
+                Pokemon.printPokemon(event, null, textChannel,  url, 3);
 
             } catch (Exception e) {
                 e.printStackTrace();

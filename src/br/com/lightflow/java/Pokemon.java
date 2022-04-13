@@ -10,23 +10,30 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import br.com.lightflow.security.Sqlite;
-//import br.com.lightflow.security.Sqlite;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Pokemon {
     
    
-    public static void printPokemon( MessageReceivedEvent event, TextChannel channel, URL url) {
+    public static void printPokemon(MessageReceivedEvent event,ButtonInteractionEvent butEvent, TextChannel channel, URL url, int buttons) {
+
         try {
-            long id = event.getMessage().getMember().getIdLong();
+            long id = (long)404;
+            if(event != null){
+                id = event.getMessage().getMember().getIdLong();
+            }else{
+                id = butEvent.getMessage().getMember().getIdLong();
+            }
+            
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestMethod("GET");
             conn.connect();
 
             if (conn.getResponseCode() != 200) {
-                channel.sendMessage("Erro nos números/pokemon").queue();
+                channel.sendMessage("Pokemon não existe").queue();
                 conn.disconnect();
             }
 
@@ -47,10 +54,17 @@ public class Pokemon {
             JSONObject forms = json.getJSONObject("sprites");
 
             String nome = (String) json.get("name");
-            nome = Utility.formata(nome);
+            int pokeid = (int) json.get("id");
+            
+            nome = SemanticUtility.formata(nome);
             String png = (String) forms.get("front_default");
 
             JSONArray types = json.getJSONArray("types");
+            JSONArray abilities = json.getJSONArray("abilities");
+            JSONObject abilitieszero = abilities.getJSONObject(0);
+            JSONObject ability = abilitieszero.getJSONObject("ability");
+            String pokeAbility = (String) ability.get("name");
+ 
 
             JSONObject type = types.getJSONObject(0);
 
@@ -59,7 +73,7 @@ public class Pokemon {
             String typeOne = (String) typeMain.get("name");
             String typeTwo = "null";
 
-            String color = Utility.getColor(typeOne);
+            String color = PokeUtility.getColor(typeOne);
 
             Random r = new Random();
             int numerorandom = (r.nextInt((2 - 1) + 1) + 1);
@@ -68,23 +82,61 @@ public class Pokemon {
                 JSONObject type2 = types.getJSONObject(1);
                 JSONObject typeMain2 = type2.getJSONObject("type");
                 typeTwo = (String) typeMain2.get("name");
+
                 if (numerorandom==2){
-                    color = Utility.getColor(typeTwo);
+                    color = PokeUtility.getColor(typeTwo);
                 }
-                typeTwo = Utility.traduzTipo(typeTwo);
+
+                typeTwo = PokeUtility.traduzTipo(typeTwo);
                 
             }
 
-            typeOne = Utility.traduzTipo(typeOne);
+            boolean evolveButton = NextPokemon.canEvolve(pokeid, pokeAbility, typeOne);
+
+
+            typeOne = PokeUtility.traduzTipo(typeOne);
               
-            Utility uti = new Utility();
-            event.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne,typeTwo, color, png,event.getMember())).setActionRow(Utility.sendButtons()).queue();
+            PokeUtility uti = new PokeUtility();
+
+            if(event != null){
+                if(buttons == 2 && evolveButton){
+                    event.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne, typeTwo, color, png,
+                    event.getMember())).setActionRow(Components.evolveButton()).queue();
+                   
+                }else if(buttons  == 3 && evolveButton){
+                    event.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne, typeTwo, color, png,
+                    event.getMember())).setActionRow(Components.captureButton(),Components.evolveButton()).queue();
+                  
+                }else if(buttons == 0){
+                    event.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne, typeTwo, color, png,
+                    event.getMember())).queue();
+                }else if(buttons == 2){
+                    event.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne, typeTwo, color, png,
+                    event.getMember())).queue();
+                }else{
+                    event.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne, typeTwo, color, png,
+                    event.getMember())).setActionRow(Components.captureButton()).queue();
+                   
+                }
+            }else{
+                if(buttons == 2 && evolveButton){
+                    butEvent.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne, typeTwo, color, png,
+                    butEvent.getMember())).setActionRow(Components.evolveButton()).queue();
+                }else if(buttons  == 3 && evolveButton){
+                    butEvent.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne, typeTwo, color, png,
+                    butEvent.getMember())).setActionRow(Components.captureButton(),Components.evolveButton()).queue();
+                }else{
+                    butEvent.getChannel().sendMessageEmbeds(uti.pokeEmbed(nome, typeOne, typeTwo, color, png,
+                    butEvent.getMember())).setActionRow(Components.captureButton()).queue();
+                }
+            }
+           
             
             Sqlite bd = new Sqlite();
             bd.setPokeTemp(id, nome);
             
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Pokemon não existe");
         }
     }
        
