@@ -10,7 +10,9 @@ import javax.security.auth.login.LoginException;
 
 import br.com.lightflow.actions.CapturePokemon;
 import br.com.lightflow.actions.CaptureProcess;
+import br.com.lightflow.actions.Delete;
 import br.com.lightflow.actions.EvolvePokemon;
+import br.com.lightflow.actions.GuessType;
 import br.com.lightflow.actions.MemberLeave;
 import br.com.lightflow.actions.NewMember;
 import br.com.lightflow.commands.ClearChannel;
@@ -18,8 +20,10 @@ import br.com.lightflow.commands.ListPokemons;
 import br.com.lightflow.commands.MultiplePokemon;
 import br.com.lightflow.commands.PokemonStatus;
 import br.com.lightflow.commands.RandomPokemon;
+import br.com.lightflow.commands.Shop;
 import br.com.lightflow.commands.Status;
 import br.com.lightflow.commands.TestCommand;
+import br.com.lightflow.commands.TypeGame;
 import br.com.lightflow.java.PokeUtility;
 import br.com.lightflow.security.Token;
 import net.dv8tion.jda.api.JDA;
@@ -50,6 +54,10 @@ public class Dev {
         jda.addEventListener(new MemberLeave());
         jda.addEventListener(new EvolvePokemon());
         jda.addEventListener(new ListPokemons());
+        jda.addEventListener(new TypeGame());
+        jda.addEventListener(new GuessType());
+        jda.addEventListener(new Delete());
+        jda.addEventListener(new Shop());
 
         // Iterando os servidores que o andrômeda está!
         for (Guild guild : jda.awaitReady().getGuilds()) {

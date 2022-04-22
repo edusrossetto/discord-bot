@@ -19,6 +19,7 @@ public class EvolvePokemon extends ListenerAdapter{
 
             event.getMessage().reply("Evoluindo...").queue();
             event.deferEdit().queue();
+            
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e1) {
@@ -49,17 +50,15 @@ public class EvolvePokemon extends ListenerAdapter{
                     url = new URL("https://pokeapi.co/api/v2/pokemon/"+(pokeid+1));
                 }
 
-                System.out.println(url);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-            
 
             pokemon = PokeUtility.getNamePokemon(pokeid+1);
             pokemon = SemanticUtility.formata(pokemon);
             bd.setPokeTemp(id, pokemon);
 
-            Pokemon.printPokemon(null, event, channel, url, 3);
+            Pokemon.printPokemon(null, event, channel, url, 3,true);
             
         }
     }

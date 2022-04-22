@@ -25,7 +25,7 @@ public class CapturePokemon extends ListenerAdapter{
 
                 int num = (r.nextInt((10 - 1) + 1) + 1);
                 
-                if (num !=666){
+                if (num != 666){
                     
                     Sqlite bd = new Sqlite();
     
@@ -38,7 +38,6 @@ public class CapturePokemon extends ListenerAdapter{
 
                     title = SemanticUtility.desFormata(title);
                     System.out.println(title);
-                    
                     
                     bd.setPokeTemp(id,title);
 

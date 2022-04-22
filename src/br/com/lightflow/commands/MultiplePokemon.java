@@ -14,21 +14,18 @@ public class MultiplePokemon extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String[] mensagem = event.getMessage().getContentRaw().split(" ");
-        TextChannel textChannel = (TextChannel) event.getChannel();
-        //long id = Long.parseLong(event.getAuthor().getId());
-        //boolean admin = Verification.verifica(id);
-
-        if (mensagem.length>1 && 
-            mensagem[0].toLowerCase().equals("$pokemons")) {
-            //Utility.contemNumero(mensagem[1]) &&
-            //admin) {
-            for (int i = 1; i < Integer.parseInt(mensagem[1]); i++) {
+        String[] message = event.getMessage().getContentRaw().split(" ");
+        TextChannel channel = (TextChannel) event.getChannel();
+     
+        if (message.length>1 && 
+            message[0].toLowerCase().equals("$pokemons")) {
+           
+            for (int i = 1; i < Integer.parseInt(message[1]); i++) {
                 Random r = new Random();
                 try {
                     URL url = new URL(
                         "https://pokeapi.co/api/v2/pokemon/" + (r.nextInt((649 - 1) + 1) + 1));
-                        Pokemon.printPokemon(event, null, textChannel,  url, 3);
+                        Pokemon.printPokemon(event, null, channel,  url, 3, true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

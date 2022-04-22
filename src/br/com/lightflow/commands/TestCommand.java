@@ -10,50 +10,50 @@ public class TestCommand extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String[] mensagem = event.getMessage().getContentRaw().split(" ");
-        TextChannel textChannel = (TextChannel) event.getChannel();
+        String[] message = event.getMessage().getContentRaw().split(" ");
+        TextChannel channel = (TextChannel) event.getChannel();
         //long id = Long.parseLong(event.getAuthor().getId());
         //boolean admin = Verification.verifica(id);
 
-        if (mensagem[0].toLowerCase().equals("$spamma") && mensagem.length == 1) {
-            textChannel.sendMessage("Quanto tem que ser spammado? Tipo \"$spamma 5\"").queue();
+        if (message[0].toLowerCase().equals("$spamma") && message.length == 1) {
+            channel.sendMessage("Quanto tem que ser spammado? Tipo \"$spamma 5\"").queue();
 
         }
 
-        if (mensagem[0].toLowerCase().equals("$spamma")
-                && mensagem.length == 2
-                && Integer.parseInt(mensagem[1]) <= 5) {
+        if (message[0].toLowerCase().equals("$spamma")
+                && message.length == 2
+                && Integer.parseInt(message[1]) <= 5) {
 
-            for (int i = 1; i <= Integer.parseInt(mensagem[1]); i++) {
+            for (int i = 1; i <= Integer.parseInt(message[1]); i++) {
                 if (i == 1) {
-                    textChannel.sendMessage(i + " Spammado").queue();
+                    channel.sendMessage(i + " Spammado").queue();
 
                 } else {
-                    textChannel.sendMessage(i + " Spammados").queue();
+                    channel.sendMessage(i + " Spammados").queue();
 
                 }
 
             }
 
         }
-        if (mensagem[0].toLowerCase().equals("$spamma")
-                && mensagem.length == 2
-                && Integer.parseInt(mensagem[1]) > 5){
+        if (message[0].toLowerCase().equals("$spamma")
+                && message.length == 2
+                && Integer.parseInt(message[1]) > 5){
                 //&& !admin) {
-            textChannel.sendMessage("Precisa ser admin pra mandar mais que 5 mensagens").queue();
+            channel.sendMessage("Precisa ser admin pra mandar mais que 5 mensagens").queue();
 
         }
-        if (mensagem[0].toLowerCase().equals("$spamma")
-            && mensagem.length == 2
-            && Integer.parseInt(mensagem[1]) > 5){
+        if (message[0].toLowerCase().equals("$spamma")
+            && message.length == 2
+            && Integer.parseInt(message[1]) > 5){
             //&& admin ) {
 
-            for (int i = 1; i <= Integer.parseInt(mensagem[1]); i++) {
+            for (int i = 1; i <= Integer.parseInt(message[1]); i++) {
                 if (i == 1) {
-                    textChannel.sendMessage(i + " Spammado").queue();
+                    channel.sendMessage(i + " Spammado").queue();
 
                 } else {
-                    textChannel.sendMessage(i + " Spammados").queue();
+                    channel.sendMessage(i + " Spammados").queue();
 
                 }
 

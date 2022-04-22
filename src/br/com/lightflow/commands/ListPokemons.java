@@ -18,11 +18,11 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class ListPokemons extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String mensagem = event.getMessage().getContentRaw();
+        String message = event.getMessage().getContentRaw();
         long id = event.getMessage().getMember().getIdLong();
-        TextChannel textChannel = (TextChannel) event.getChannel();
+        TextChannel channel = (TextChannel) event.getChannel();
 
-        if (mensagem.toLowerCase().equals("$pokelista")) {
+        if (message.toLowerCase().equals("$pokelista")) {
 
             Sqlite bd = new Sqlite();
             String pokemons = bd.getPokemons(id);
@@ -35,7 +35,7 @@ public class ListPokemons extends ListenerAdapter {
             for (String poke : pokeArray) {
                 try {
                     URL url = new URL("https://pokeapi.co/api/v2/pokemon/"+ SemanticUtility.desFormata(poke));
-                    Pokemon.printPokemon(event, null, textChannel, url, 0);
+                    Pokemon.printPokemon(event, null, channel, url, 2, true);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }

@@ -12,13 +12,13 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class PokemonStatus extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        TextChannel textChannel = (TextChannel) event.getChannel();
-        String mensagem[] = event.getMessage().getContentRaw().split(" ");
-        if (mensagem[0].toLowerCase().contains("$pokemon") && mensagem.length > 1) {
+        TextChannel channel = (TextChannel) event.getChannel();
+        String message[] = event.getMessage().getContentRaw().split(" ");
+        if (message[0].toLowerCase().contains("$pokemon") && message.length > 1) {
             try {
-                URL url = new URL("https://pokeapi.co/api/v2/pokemon/" + mensagem[1]);
+                URL url = new URL("https://pokeapi.co/api/v2/pokemon/" + message[1]);
                 
-                Pokemon.printPokemon(event, null, textChannel,  url, 2);
+                Pokemon.printPokemon(event, null, channel,  url, 2, true);
             } catch (Exception e) {
                 e.printStackTrace();
             }

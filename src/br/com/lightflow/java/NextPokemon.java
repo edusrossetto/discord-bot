@@ -52,8 +52,9 @@ public class NextPokemon {
                 JSONObject type2 = types.getJSONObject(1);
                 JSONObject typeMain2 = type2.getJSONObject("type");
                 typeTwo = (String) typeMain2.get("name");
-
-                typeTwo = PokeUtility.traduzTipo(typeTwo);
+                
+                PokeUtility pu = new PokeUtility();
+                typeTwo = pu.traduzTipo(typeTwo);
                 
             }
 
