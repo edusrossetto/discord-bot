@@ -154,7 +154,7 @@ public class Pokemon {
             }
         
             Sqlite bd = new Sqlite();
-            bd.setPokeTemp(id, nome);
+            bd.setTableValue(id, "pokeTemp", nome);
             
         } catch (Exception e) {
             e.printStackTrace();

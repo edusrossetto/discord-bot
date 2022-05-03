@@ -1,8 +1,5 @@
 package br.com.lightflow.actions;
 
-import java.util.Random;
-
-import br.com.lightflow.java.SemanticUtility;
 import br.com.lightflow.security.Sqlite;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -12,9 +9,17 @@ public class BuyAction extends ListenerAdapter{
     @Override
     public void onButtonInteraction(ButtonInteractionEvent event) {
         String[] identifier = event.getComponentId().split("\\s+");
-        if (true||identifier[0].equals("$buy")) {
+
+        if (identifier[0].equals("$buy")||true) {
+            long id = event.getMember().getIdLong();
+            TextChannel channel = event.getTextChannel();
+
+           if(identifier[1].equals("pokeball")|| true){
+               Sqlite bd = new Sqlite();
+               channel.sendMessage("Pokeball comprada!");
+               bd.setTableValue(id, "pokeballs", Integer.toString(bd.getIntByName("pokeballs", id)+1));
+           }
            
-           if(identifier[1].equals("pokeball"));
             
         }
     }

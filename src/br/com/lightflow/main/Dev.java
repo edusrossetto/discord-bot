@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.security.auth.login.LoginException;
 
+import br.com.lightflow.actions.BuyAction;
 import br.com.lightflow.actions.CapturePokemon;
 import br.com.lightflow.actions.CaptureProcess;
 import br.com.lightflow.actions.Delete;
@@ -58,6 +59,7 @@ public class Dev {
         jda.addEventListener(new GuessType());
         jda.addEventListener(new Delete());
         jda.addEventListener(new Shop());
+        jda.addEventListener(new BuyAction());
 
         // Iterando os servidores que o andrômeda está!
         for (Guild guild : jda.awaitReady().getGuilds()) {

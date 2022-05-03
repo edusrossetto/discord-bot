@@ -36,7 +36,7 @@ public class EvolvePokemon extends ListenerAdapter{
             title = event.getMessage().getEmbeds().get(0).getTitle();
             title = title.replaceAll("\\*", "");
             title = SemanticUtility.desFormata(title);
-            bd.setPokeTemp(id, title);
+            bd.setTableValue(id, "pokeTemp", title);
 
             String pokemon = bd.getPokeTemp(id);
             int pokeid = PokeUtility.getIdPokemon(pokemon);
@@ -56,8 +56,8 @@ public class EvolvePokemon extends ListenerAdapter{
 
             pokemon = PokeUtility.getNamePokemon(pokeid+1);
             pokemon = SemanticUtility.formata(pokemon);
-            bd.setPokeTemp(id, pokemon);
-
+            bd.setTableValue(id, "pokeTemp", pokemon);
+            
             Pokemon.printPokemon(null, event, channel, url, 3,true);
             
         }

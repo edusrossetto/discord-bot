@@ -39,7 +39,7 @@ public class CapturePokemon extends ListenerAdapter{
                     title = SemanticUtility.desFormata(title);
                     System.out.println(title);
                     
-                    bd.setPokeTemp(id,title);
+                    bd.setTableValue(id, "pokeTemp", title);
 
                     String pokemons = bd.getPokemons(id);
     
